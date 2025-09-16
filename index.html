@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>서울형 디지털 융합 혁신 도시 모델 컨퍼런스</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals with a Subtle Tech Blue Accent -->
+    <!-- Application Structure Plan: This application is designed as an interactive digital invitation and guide. It transforms the linear report into an engaging user journey. The structure starts with a clear Hero section containing the event's core details and a primary call-to-action (registration). This is followed by thematic sections: 'About the Conference' (Purpose), 'Program at a Glance' (an interactive timeline), 'Key Participants', and 'Expected Outcomes'. This modular, top-down approach allows users to quickly grasp the event's value and then dive into details as they wish. The interactive timeline, in particular, makes the schedule more digestible than a static table. The user flow is designed to build interest and culminate in a final registration call-to-action in the footer. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Conference Purpose & Expected Effects -> Goal: Inform & Engage -> Presentation Method: Themed card layouts with icons -> Interaction: Subtle hover effects -> Justification: Visually breaks down key concepts, making them more scannable and memorable than simple bullet points. -> Library/Method: Tailwind CSS.
+        - Report Info: Detailed Program Schedule -> Goal: Organize & Detail -> Viz/Presentation Method: Interactive vertical timeline -> Interaction: Users can click on each timeline event to expand and view detailed information. -> Justification: Far more engaging than a static table. It allows users to control the level of detail they see, preventing information overload and encouraging exploration of the schedule. -> Library/Method: Vanilla JavaScript and Tailwind CSS.
+        - Report Info: Key Roles (Speakers/Panelists) -> Goal: Inform & Build Credibility -> Presentation Method: Profile card grid -> Interaction: None, focuses on clear presentation -> Justification: Humanizes the event by highlighting the key people and organizations involved. -> Library/Method: Tailwind CSS.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f8f7f4;
+            color: #333;
+        }
+        .timeline-item-content {
+            transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+        .timeline-item-content.open {
+            max-height: 500px;
+            opacity: 1;
+        }
+        .btn-primary {
+            background-color: #3b82f6;
+            color: white;
+            transition: background-color 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: #2563eb;
+        }
+        .section-title {
+            color: #1e3a8a;
+        }
+        .card {
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <header class="bg-white shadow-sm">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-xl md:text-2xl font-bold text-blue-800">미래 서울 디지털 컨퍼런스</h1>
+            <a href="#register" class="btn-primary font-bold py-2 px-4 rounded-lg">사전 등록</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero" class="text-center py-20 px-6 bg-cover bg-center" style="background-image: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), url('https://placehold.co/1200x600/e2e8f0/64748b?text=Seoul+City+View');">
+            <div class="container mx-auto">
+                <h2 class="text-3xl md:text-5xl font-bold mb-4 text-gray-800">서울형 디지털 융합 혁신 도시 모델<br>중기 추진계획 컨퍼런스</h2>
+                <p class="text-lg md:text-xl font-semibold text-blue-700 mb-6">"미래 서울, 디지털 협력으로 열어가다"</p>
+                <div class="flex items-center justify-center space-x-6 text-gray-600 mb-8">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-2xl">🗓️</span>
+                        <span>2025년 10월 27일 (월) 14:00</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <span class="text-2xl">📍</span>
+                        <span>서울시청 컨벤션홀</span>
+                    </div>
+                </div>
+                <a href="#register" class="btn-primary text-lg font-bold py-3 px-8 rounded-lg inline-block">참가 신청하기</a>
+            </div>
+        </section>
+
+        <section id="about" class="py-16 bg-white">
+            <div class="container mx-auto px-6">
+                <h3 class="text-3xl font-bold text-center mb-2 section-title">컨퍼런스 목적</h3>
+                <p class="text-center text-gray-600 mb-12 max-w-3xl mx-auto">이번 컨퍼런스는 서울의 디지털 미래를 함께 만들어갈 핵심 파트너들과 비전을 공유하고, 지속 가능한 협력의 장을 열기 위해 마련되었습니다. 여러분의 통찰력과 참여가 더 나은 서울을 만드는 데 큰 힘이 됩니다.</p>
+                <div class="grid md:grid-cols-3 gap-8 text-center">
+                    <div class="card p-8">
+                        <div class="text-4xl mb-4">💡</div>
+                        <h4 class="text-xl font-bold mb-2 text-blue-800">비전 공유</h4>
+                        <p class="text-gray-600">서울시의 미래 디지털 혁신 비전과 중기 추진계획을 명확히 전달하여 상호 이해도를 높입니다.</p>
+                    </div>
+                    <div class="card p-8">
+                        <div class="text-4xl mb-4">🤝</div>
+                        <h4 class="text-xl font-bold mb-2 text-blue-800">협력 강화</h4>
+                        <p class="text-gray-600">민관 협력의 중요성을 강조하고, 지속 가능한 협력 체계를 구축하기 위한 논의의 장을 마련합니다.</p>
+                    </div>
+                    <div class="card p-8">
+                        <div class="text-4xl mb-4">🗣️</div>
+                        <h4 class="text-xl font-bold mb-2 text-blue-800">피드백 수렴</h4>
+                        <p class="text-gray-600">추진계획에 대한 다양한 의견을 수렴하여 계획의 완성도와 실효성을 제고합니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="program" class="py-16">
+            <div class="container mx-auto px-6">
+                <h3 class="text-3xl font-bold text-center mb-12 section-title">프로그램 상세 안내</h3>
+                <p class="text-center text-gray-600 mb-12 max-w-3xl mx-auto">각 세션을 클릭하여 상세 내용을 확인하실 수 있습니다. 서울의 디지털 미래를 위한 비전 발표부터 심도 깊은 패널 토론까지, 유익한 시간이 될 것입니다.</p>
+                <div class="max-w-4xl mx-auto">
+                    <div id="timeline" class="relative">
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="participants" class="py-16 bg-white">
+            <div class="container mx-auto px-6">
+                <h3 class="text-3xl font-bold text-center mb-12 section-title">주요 참여 주체</h3>
+                 <p class="text-center text-gray-600 mb-12 max-w-3xl mx-auto">이번 컨퍼런스에는 서울의 미래를 함께 고민하는 다양한 분야의 리더들이 참여합니다. 공공, 민간, 학계, 그리고 시민사회가 함께 지혜를 모아 디지털 혁신을 이끌어갈 것입니다.</p>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                    <div class="card p-6">
+                        <div class="text-4xl mb-4">🏛️</div>
+                        <h4 class="font-bold text-lg">서울시청 &<br>전략사무국</h4>
+                    </div>
+                    <div class="card p-6">
+                        <div class="text-4xl mb-4">🏢</div>
+                        <h4 class="font-bold text-lg">민간 기업</h4>
+                    </div>
+                    <div class="card p-6">
+                        <div class="text-4xl mb-4">🎓</div>
+                        <h4 class="font-bold text-lg">대학 &<br>연구기관</h4>
+                    </div>
+                    <div class="card p-6">
+                        <div class="text-4xl mb-4">🌳</div>
+                        <h4 class="font-bold text-lg">시민 단체</h4>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="outcomes" class="py-16">
+            <div class="container mx-auto px-6">
+                <h3 class="text-3xl font-bold text-center mb-12 section-title">기대 효과</h3>
+                <p class="text-center text-gray-600 mb-12 max-w-3xl mx-auto">성공적인 컨퍼런스 개최를 통해 우리는 단순한 정보 공유를 넘어, 실질적인 협력 관계를 구축하고 서울의 디지털 혁신을 한 단계 발전시키는 계기를 마련하고자 합니다.</p>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-blue-100 p-6 rounded-lg flex items-start space-x-4">
+                        <span class="text-2xl pt-1">🎯</span>
+                        <div>
+                            <h4 class="font-bold">공감대 형성</h4>
+                            <p class="text-sm text-gray-700">추진계획에 대한 협력 주체들의 명확한 이해와 공감대를 형성합니다.</p>
+                        </div>
+                    </div>
+                    <div class="bg-blue-100 p-6 rounded-lg flex items-start space-x-4">
+                        <span class="text-2xl pt-1">🚀</span>
+                        <div>
+                            <h4 class="font-bold">시너지 창출</h4>
+                            <p class="text-sm text-gray-700">각 기관의 자원과 역량을 결합하여 강력한 시너지를 창출합니다.</p>
+                        </div>
+                    </div>
+                    <div class="bg-blue-100 p-6 rounded-lg flex items-start space-x-4">
+                        <span class="text-2xl pt-1">🌐</span>
+                        <div>
+                            <h4 class="font-bold">선도 모델 제시</h4>
+                            <p class="text-sm text-gray-700">디지털 정책에 대한 민관 협력의 성공적인 선도 모델을 제시합니다.</p>
+                        </div>
+                    </div>
+                    <div class="bg-blue-100 p-6 rounded-lg flex items-start space-x-4">
+                        <span class="text-2xl pt-1">📈</span>
+                        <div>
+                            <h4 class="font-bold">로드맵 강화</h4>
+                            <p class="text-sm text-gray-700">지속 가능한 혁신 도시 구축을 위한 구체적인 로드맵을 강화합니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="register" class="py-16 bg-blue-700 text-white">
+            <div class="container mx-auto px-6 text-center">
+                <h3 class="text-3xl font-bold mb-4">지금 사전 등록하세요</h3>
+                <p class="mb-6">참가 신청은 2025년 10월 18일까지 서울시 공식 홈페이지를 통해 가능합니다.</p>
+                <a href="#" class="bg-white text-blue-700 text-lg font-bold py-3 px-8 rounded-lg inline-block hover:bg-gray-200 transition">서울시 홈페이지 바로가기</a>
+                <div class="mt-8 text-blue-200">
+                    <p>문의: 서울시 스마트도시담당관실</p>
+                    <p>전화: 02-123-4567 | 이메일: smartcity@seoul.go.kr</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-6">
+        <div class="container mx-auto px-6 text-center text-sm">
+            <p>&copy; 2025 Seoul Metropolitan Government. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const timelineData = [
+            { time: '14:00 - 14:15', title: '등록 및 네트워킹', content: '컨퍼런스 등록 및 참석자 간 자유로운 교류' },
+            { time: '14:15 - 14:20', title: '개회 및 환영사', content: '컨퍼런스 시작 및 주요 참석자 소개', speaker: '서울시장' },
+            { time: '14:20 - 14:50', title: '기조연설: "미래 서울, 디지털로 열다"', content: '서울의 디지털 혁신을 위한 비전과 방향 제시', speaker: '서울시 전략사무국장' },
+            { time: '14:50 - 15:30', title: '추진계획 발표', content: '5개년 중기 추진계획의 핵심 내용 발표: "서울형 디지털 융합 혁신 도시 모델 (2026~2030) 세부 계획"', speaker: '서울시 담당 부서' },
+            { time: '15:30 - 15:45', title: '휴식', content: 'Coffee Break' },
+            { time: '15:45 - 16:30', title: '패널 토론: "민관 협력을 통한 혁신 도시 실현 방안"', content: '민간기업, 대학·연구기관, 시민단체 대표 참여 (좌장 포함 4~5인)', speaker: '각계 전문가' },
+            { time: '16:30 - 16:50', title: '질의응답 및 자유 토론', content: '참석자들의 질문에 대한 답변 및 자유 토론', speaker: '패널 및 발표자' },
+            { time: '16:50 - 17:00', title: '폐회 및 네트워킹', content: '행사 종료 및 참석자 간 추가 교류' }
+        ];
+
+        const timelineContainer = document.getElementById('timeline');
+
+        timelineData.forEach((item, index) => {
+            const isLast = index === timelineData.length - 1;
+            const timelineItem = document.createElement('div');
+            timelineItem.className = `timeline-item mb-8 flex justify-between ${index % 2 === 0 ? 'flex-row-reverse' : ''} items-center w-full`;
+            
+            const contentHTML = `
+                <div class="order-1 w-5/12"></div>
+                <div class="z-20 flex items-center order-1 bg-blue-600 shadow-xl w-12 h-12 rounded-full">
+                    <h1 class="mx-auto font-semibold text-lg text-white">${index + 1}</h1>
+                </div>
+                <div class="order-1 bg-white rounded-lg shadow-xl w-5/12 px-6 py-4 card cursor-pointer">
+                    <p class="text-sm text-gray-500">${item.time}</p>
+                    <h3 class="mb-3 font-bold text-gray-800 text-xl">${item.title}</h3>
+                    <div class="timeline-item-content">
+                        <p class="text-sm leading-snug tracking-wide text-gray-600 text-opacity-100">${item.content}</p>
+                        ${item.speaker ? `<p class="text-sm mt-2 font-semibold text-blue-600">발표: ${item.speaker}</p>` : ''}
+                    </div>
+                </div>
+            `;
+            timelineItem.innerHTML = contentHTML;
+
+            timelineContainer.appendChild(timelineItem);
+            
+            const cardElement = timelineItem.querySelector('.card');
+            const contentElement = timelineItem.querySelector('.timeline-item-content');
+
+            cardElement.addEventListener('click', () => {
+                const alreadyOpen = contentElement.classList.contains('open');
+                document.querySelectorAll('.timeline-item-content').forEach(el => {
+                    el.classList.remove('open');
+                });
+                if (!alreadyOpen) {
+                    contentElement.classList.add('open');
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>
